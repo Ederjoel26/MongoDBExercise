@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace MongoDBExercise.Views
 {
-    public partial class Insert : Form
+    public partial class frmInsertar : Form
     {
-        public Insert()
+        public frmInsertar()
         {
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -66,27 +66,27 @@ namespace MongoDBExercise.Views
 
         private void btnInsertValue_Click(object sender, EventArgs e)
         {
-            if(txtComputerName.Text == "" || txtRAM.Text == "" || txtStorageUnit.Text == "" || txtMotherBoard.Text == "" || txtGPU.Text == "" || txtGPU.Text == "" || txtPowerSource.Text == "")
+            if( txtNombreComputadora.Text == string.Empty || txtRAM.Text == string.Empty || txtUnidadAlmacenamiento.Text == string.Empty || txtTarjetaMadre.Text == string.Empty || txtGPU.Text == string.Empty || txtGPU.Text == string.Empty || txtFuentePoder.Text == string.Empty )
             {
                 MessageBox.Show("Please fill in the requested fields.");
                 return;
             }
-            List<string> list = new List<string>()
+            List<string> lstAuxiliar = new List<string>()
             {
                 ""
             };
-            ComputerModel Computer = new ComputerModel
+            clsComputadoraModelo Computer = new clsComputadoraModelo
             {
-                ComputerName = txtComputerName.Text,
-                RAM = txtRAM.Text,
-                StorageUnit = txtStorageUnit.Text,
-                MotherBoard = txtMotherBoard.Text,
-                GPU = txtGPU.Text,
-                CPU = txtCPU.Text,
-                PowerSource = txtPowerSource.Text,
-                MaintenanceLog = list
+                sNombreComputadora = txtNombreComputadora.Text,
+                sRAM = txtRAM.Text,
+                sUnidadAlmacenamiento = txtUnidadAlmacenamiento.Text,
+                sTarjetaMadre = txtTarjetaMadre.Text,
+                sGPU = txtGPU.Text,
+                sCPU = txtCPU.Text,
+                sFuentePoder = txtFuentePoder.Text,
+                lstMantenimiento = lstAuxiliar
             };
-            DatabaseQueries.InsertOneValue(Computer);
+            clsConsultasBD.InsertarComputadora(Computer);
             this.Close();
         }
     }

@@ -13,12 +13,12 @@ using System.Windows.Forms;
 
 namespace MongoDBExercise
 {
-    public partial class Home : Form
+    public partial class frmInicial : Form
     {
-        public Home()
+        public frmInicial()
         {
             InitializeComponent();
-            FillData();
+            LlenarCampos();
             FormBorderStyle = FormBorderStyle.FixedDialog;
         }
 
@@ -27,20 +27,20 @@ namespace MongoDBExercise
 
         }
 
-        private void FillData()
+        private void LlenarCampos()
         {
-            dgComputers.Rows.Clear();
-            List<ComputerModel> ComputersList = DatabaseQueries.GetAllValues();
-            foreach(ComputerModel computer in ComputersList)
+            gdvComputadoras.Rows.Clear();
+            List<clsComputadoraModelo> lstComputadoras = clsConsultasBD.ObtenerTodasComputadoras();
+            foreach( clsComputadoraModelo oComputer in lstComputadoras )
             {
-                dgComputers.Rows.Add(computer.ComputerName, computer.RAM, computer.StorageUnit, computer.MotherBoard, computer.GPU, computer.CPU, computer.PowerSource);
+                gdvComputadoras.Rows.Add(oComputer.sNombreComputadora, oComputer.sRAM, oComputer.sUnidadAlmacenamiento, oComputer.sTarjetaMadre, oComputer.sGPU, oComputer.sCPU, oComputer.sFuentePoder);
             }
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            Insert InsertForm = new Insert();
-            InsertForm.Show();
+            frmInsertar frmInsertar = new frmInsertar();
+            frmInsertar.Show();
         }
 
         private void dgComputers_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -50,25 +50,30 @@ namespace MongoDBExercise
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            FillData();
+            LlenarCampos();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            Delete DeleteForm = new Delete();
-            DeleteForm.Show();
+            frmEliminar frmEliminar = new frmEliminar();
+            frmEliminar.Show();
         }
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            Modify ModifyForm = new Modify();
-            ModifyForm.Show();
+            frmModificar frmModificar = new frmModificar();
+            frmModificar.Show();
         }
 
         private void btnShowSpecifications_Click(object sender, EventArgs e)
         {
-            ShowSpecifications ShowSpecificationsForm = new ShowSpecifications();
-            ShowSpecificationsForm.Show();
+            frmMostrarEsp frmMostrarEsp = new frmMostrarEsp();
+            frmMostrarEsp.Show();
+        }
+
+        private void lbTitle_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

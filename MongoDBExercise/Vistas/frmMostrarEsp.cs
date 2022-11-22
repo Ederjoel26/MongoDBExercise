@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace MongoDBExercise.Views
 {
-    public partial class ShowSpecifications : Form
+    public partial class frmMostrarEsp : Form
     {
-        public ShowSpecifications()
+        public frmMostrarEsp()
         {
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -22,26 +22,26 @@ namespace MongoDBExercise.Views
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            ComputerModel Computer = DatabaseQueries.FindOneComputer(txtSearch.Text);
-            FillData(Computer);
+            clsComputadoraModelo oComputadora = clsConsultasBD.BuscarComputadora(txtBuscar.Text);
+            LlenarCampos(oComputadora);
         }
 
-        private void FillData(ComputerModel Computer)
+        private void LlenarCampos(clsComputadoraModelo oComputadora)
         {
-            dgMaintenence.Rows.Clear();
-            if(Computer == null) 
+            gdvMantenimiento.Rows.Clear();
+            if( oComputadora == null ) 
             {
-                MessageBox.Show("That computer doesn't exist");
+                MessageBox.Show("Computadora no existente.");
                 return;
             }
-            if(Computer.MaintenanceLog.Count == 1)
+            if( oComputadora.lstMantenimiento.Count == 1 )
             {
-                MessageBox.Show("There are not maintenence logs for this computer");
+                MessageBox.Show("No hay historial de mantenimiento para esta computadora.");
                 return;
             }
-            for(int i = 1; i < Computer.MaintenanceLog.Count; i++)
+            for( int i = 1; i < oComputadora.lstMantenimiento.Count; i++ )
             {
-                dgMaintenence.Rows.Add(Computer.MaintenanceLog[i]);
+                gdvMantenimiento.Rows.Add(oComputadora.lstMantenimiento[i]);
             }
         }
 
